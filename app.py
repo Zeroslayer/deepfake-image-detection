@@ -13,29 +13,30 @@ def get_model():
     model = load_model('weights/best_model.pth', device)
     return model, device
 
-model, device = get_model()
-
-uploaded_file = st.file_uploader("Chọn một bức ảnh...", type=["jpg", "jpeg", "png"])
+# Nút Upload ảnh
+uploaded_file = st.file_uploader("Kéo thả hoặc chọn bức ảnh cần kiểm tra...", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert('RGB')
-    st.image(image, caption='Ảnh đã tải lên', use_column_width=True)
+    st.image(image, caption='Ảnh đã tải lên', use_container_width=True)
     
-    if st.button('Phân tích'):
-        img_np = np.array(image)
-        tensor = val_transform(image=img_np)['image'].unsqueeze(0).to(device)
+    if st.button('🔍 Phân tích ngay'):
+        with st.spinner('Đang phân tích khuôn mặt...'):
+            model, device = get_model()
+            img_np = np.array(image)
+            tensor = val_transform(image=img_np)['image'].unsqueeze(0).to(device)
 
-        with torch.no_grad():
-            logits = model(tensor)
-            probs = torch.softmax(logits, dim=1)[0]
+            with torch.no_grad():
+                logits = model(tensor)
+                probs = torch.softmax(logits, dim=1)[0]
 
-        real_prob = float(probs[0]) * 100
-        fake_prob = float(probs[1]) * 100
+            real_prob = float(probs[0]) * 100
+            fake_prob = float(probs[1]) * 100
 
-        st.subheader("Kết quả dự đoán:")
-        if fake_prob >= 50:
-            st.error(f"🚨 **FAKE (Giả mạo)** - Độ tin cậy: {fake_prob:.2f}%")
-        else:
-            st.success(f"✅ **REAL (Thật)** - Độ tin cậy: {real_prob:.2f}%")
-            
-        st.bar_chart({"Real (%)": real_prob, "Fake (%)": fake_prob})
+            st.subheader("Kết quả dự đoán:")
+            if fake_prob >= 50:
+                st.error(f"🚨 **FAKE (Ảnh Giả Mạo)** - Độ tin cậy: {fake_prob:.2f}%")
+            else:
+                st.success(f"✅ **REAL (Ảnh Thật)** - Độ tin cậy: {real_prob:.2f}%")
+                
+            st.bar_chart({"Real (%)": real_prob, "Fake (%)": fake_prob})
