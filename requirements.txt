@@ -5,3 +5,4 @@ albumentations
 opencv-python
 matplotlib
 Pillow
+streamlit
