@@ -27,12 +27,12 @@ Quy trình tiền xử lý dữ liệu được thiết kế chặt chẽ thông
 4. **To Tensor:** Chuyển đổi định dạng ảnh thành PyTorch Tensor (`ToTensorV2`) để đẩy vào mô hình xử lý[cite: 1].
 
 ## 🛠️ Technologies
-* **Ngôn ngữ:** Python[cite: 1]
-* **Deep Learning Framework:** PyTorch, Torchvision[cite: 1]
-* **Computer Vision / Image Processing:** OpenCV (`cv2`), Pillow (`PIL`)[cite: 1]
-* **Data Augmentation:** Albumentations[cite: 1]
-* **Pre-trained Models:** `timm`[cite: 1]
-* **Visualization:** Matplotlib[cite: 1]
+* **Ngôn ngữ:** Python
+* **Deep Learning Framework:** PyTorch, Torchvision
+* **Computer Vision / Image Processing:** OpenCV (`cv2`), Pillow (`PIL`)
+* **Data Augmentation:** Albumentations
+* **Pre-trained Models:** `timm`
+* **Visualization:** Matplotlib
 
 ## 📂 Project Structure
 ```text
