@@ -1,39 +1,41 @@
-import gradio as gr
+import streamlit as st
 import torch
-import cv2
 import numpy as np
+from PIL import Image
 from predict_deepfake import load_model, val_transform, DeepfakeDetector
 
-# Load model 1 lan khi khoi chay app
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-model = load_model('weights/best_model.pth', device)
+st.title("🛡️ Deepfake Image Detection")
+st.write("Tải ảnh lên để kiểm tra xem là ảnh **Real (Thật)** hay **Fake (Giả)**.")
 
-def predict(image):
-    if image is None:
-        return "Vui long tải ảnh lên", 0.0, 0.0
+@st.cache_resource
+def get_model():
+    device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = load_model('weights/best_model.pth', device)
+    return model, device
+
+model, device = get_model()
+
+uploaded_file = st.file_uploader("Chọn một bức ảnh...", type=["jpg", "jpeg", "png"])
+
+if uploaded_file is not None:
+    image = Image.open(uploaded_file).convert('RGB')
+    st.image(image, caption='Ảnh đã tải lên', use_column_width=True)
     
-    # Chuyen anh PIL sang numpy/RGB
-    img = np.array(image)
-    tensor = val_transform(image=img)['image'].unsqueeze(0).to(device)
+    if st.button('Phân tích'):
+        img_np = np.array(image)
+        tensor = val_transform(image=img_np)['image'].unsqueeze(0).to(device)
 
-    with torch.no_grad():
-        logits = model(tensor)
-        probs = torch.softmax(logits, dim=1)[0]
+        with torch.no_grad():
+            logits = model(tensor)
+            probs = torch.softmax(logits, dim=1)[0]
 
-    real_prob = float(probs[0])
-    fake_prob = float(probs[1])
+        real_prob = float(probs[0]) * 100
+        fake_prob = float(probs[1]) * 100
 
-    # Tra ve ket qua duoi dang dict cho Gradio hien thi thanh phan pho
-    return {"Real": real_prob, "Fake": fake_prob}
-
-# Tao giao dien Web
-interface = gr.Interface(
-    fn=predict,
-    inputs=gr.Image(type="pil", label="Tải ảnh cần kiểm tra"),
-    outputs=gr.Label(num_top_classes=2, label="Kết quả dự đoán"),
-    title="Deepfake Image Detection",
-    description="Tải lên bức ảnh khuôn mặt để kiểm tra xem là ảnh Thật (Real) hay Giả mạo (Fake)."
-)
-
-if __name__ == "__main__":
-    interface.launch()
+        st.subheader("Kết quả dự đoán:")
+        if fake_prob >= 50:
+            st.error(f"🚨 **FAKE (Giả mạo)** - Độ tin cậy: {fake_prob:.2f}%")
+        else:
+            st.success(f"✅ **REAL (Thật)** - Độ tin cậy: {real_prob:.2f}%")
+            
+        st.bar_chart({"Real (%)": real_prob, "Fake (%)": fake_prob})
