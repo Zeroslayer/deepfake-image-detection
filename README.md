@@ -37,8 +37,7 @@ Quy trình tiền xử lý dữ liệu được thiết kế chặt chẽ thông
 ## 📂 Project Structure
 ```text
 deepfake-detection/
-├── weights/
-│   └── best_model.pth        # https://drive.google.com/file/d/1n1BfdbCNzU5eaIzaHyQ9hqQXEp8qoVxh/view?usp=sharing
+├ best_model.pth        # https://drive.google.com/file/d/1n1BfdbCNzU5eaIzaHyQ9hqQXEp8qoVxh/view?usp=sharing
 ├── test_images/
 │   └── real.jpg or fake.jpg            # Ảnh dùng để test
 ├── predict_deepfake.py       
