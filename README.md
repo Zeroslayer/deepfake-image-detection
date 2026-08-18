@@ -43,4 +43,24 @@ deepfake-detection/
 │   └── real.jpg or fake.jpg            # Ảnh dùng để test
 ├── predict_deepfake.py       
 ├── requirements.txt          # Danh sách thư viện cần thiết
-└── README.md                 
+└── README.md
+🚀 Installation
+1. Clone kho lưu trữ này về máy tính
+
+Bash
+git clone [https://github.com/username-cua-ban/deepfake-detection.git](https://github.com/username-cua-ban/deepfake-detection.git)
+cd deepfake-detection
+2. Cài đặt các thư viện phụ thuộc
+
+Bash
+pip install -r requirements.txt
+3. Cài đặt Model Weights
+Do giới hạn dung lượng lưu trữ trên GitHub, vui lòng tải file best_model.pth tại link dưới đây và đặt vào thư mục weights/.
+
+Link Google Drive tải best_model.pth # https://drive.google.com/file/d/1n1BfdbCNzU5eaIzaHyQ9hqQXEp8qoVxh/view?usp=sharing
+
+▶️ Run Locally
+Sau khi hoàn tất cài đặt, bạn có thể chạy dự đoán một bức ảnh bằng lệnh sau:
+
+Bash
+python predict_deepfake.py --image "test_images/fake.jpg" --model "weights/best_model.pth"
