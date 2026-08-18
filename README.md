@@ -7,24 +7,24 @@ Dự án này tập trung vào việc phân loại và phát hiện hình ảnh 
 * **Phân loại ảnh nhanh chóng:** Đánh giá ảnh đầu vào là Real hay Fake với độ trễ thấp.
 * **Trực quan hóa kết quả:** Hiển thị ảnh gốc kèm theo biểu đồ thanh (bar chart) minh họa trực quan xác suất P(Real) và P(Fake).
 * **Tùy chỉnh ngưỡng đánh giá (Threshold):** Cho phép thay đổi linh hoạt ngưỡng xác định Fake (mặc định là 0.5) thông qua tham số dòng lệnh.
-* **Chế độ chạy ẩn (No-show):** Tích hợp cờ `--no-show` giúp chạy hàng loạt (batch inference) mà không bị gián đoạn bởi cửa sổ hiển thị đồ họa[cite: 1].
+* **Chế độ chạy ẩn (No-show):** Tích hợp cờ `--no-show` giúp chạy hàng loạt (batch inference) mà không bị gián đoạn bởi cửa sổ hiển thị đồ họ.
 
 ## 🧠 Model
 Hệ thống sử dụng kiến trúc Transfer Learning với thông số cụ thể như sau:
-* **Backbone:** `efficientnet_b3` được trích xuất từ thư viện `timm` (PyTorch Image Models)[cite: 1].
-* **Feature Dimension:** 1536 features đầu ra từ backbone[cite: 1].
+* **Backbone:** `efficientnet_b3` được trích xuất từ thư viện `timm` (PyTorch Image Models).
+* **Feature Dimension:** 1536 features đầu ra từ backbone.
 * **Custom Classifier:** 
-  * Cấu trúc Multi-Layer Perceptron (MLP) thu gọn[cite: 1].
-  * Tích hợp BatchNormalization và ReLU activation sau mỗi lớp Linear[cite: 1].
-  * Sử dụng Dropout (0.4 và 0.3) để giảm thiểu hiện tượng Overfitting[cite: 1].
-  * Lớp đầu ra cuối cùng phân loại thành 2 classes (Real/Fake)[cite: 1].
+  * Cấu trúc Multi-Layer Perceptron (MLP) thu gọn.
+  * Tích hợp BatchNormalization và ReLU activation sau mỗi lớp Linear.
+  * Sử dụng Dropout (0.4 và 0.3) để giảm thiểu hiện tượng Overfitting.
+  * Lớp đầu ra cuối cùng phân loại thành 2 classes (Real/Fake).
 
 ## 🔄 Pipeline
-Quy trình tiền xử lý dữ liệu được thiết kế chặt chẽ thông qua thư viện `albumentations`[cite: 1]:
-1. **Đọc và chuyển đổi màu:** Ảnh được đọc và chuyển từ không gian màu BGR sang RGB bằng OpenCV[cite: 1].
-2. **Resize:** Mọi ảnh đầu vào được đưa về kích thước chuẩn `224x224`[cite: 1].
-3. **Normalize:** Chuẩn hóa dữ liệu theo phân phối chuẩn của ImageNet với `mean=[0.485, 0.456, 0.406]` và `std=[0.229, 0.224, 0.225]`[cite: 1].
-4. **To Tensor:** Chuyển đổi định dạng ảnh thành PyTorch Tensor (`ToTensorV2`) để đẩy vào mô hình xử lý[cite: 1].
+Quy trình tiền xử lý dữ liệu được thiết kế chặt chẽ thông qua thư viện `albumentations`:
+1. **Đọc và chuyển đổi màu:** Ảnh được đọc và chuyển từ không gian màu BGR sang RGB bằng OpenCV.
+2. **Resize:** Mọi ảnh đầu vào được đưa về kích thước chuẩn `224x224`.
+3. **Normalize:** Chuẩn hóa dữ liệu theo phân phối chuẩn của ImageNet với `mean=[0.485, 0.456, 0.406]` và `std=[0.229, 0.224, 0.225]`.
+4. **To Tensor:** Chuyển đổi định dạng ảnh thành PyTorch Tensor (`ToTensorV2`) để đẩy vào mô hình xử lý.
 
 ## 🛠️ Technologies
 * **Ngôn ngữ:** Python
@@ -38,9 +38,9 @@ Quy trình tiền xử lý dữ liệu được thiết kế chặt chẽ thông
 ```text
 deepfake-detection/
 ├── weights/
-│   └── best_model.pth        # Trọng số mô hình (Tải từ Drive)
+│   └── best_model.pth        # https://drive.google.com/file/d/1n1BfdbCNzU5eaIzaHyQ9hqQXEp8qoVxh/view?usp=sharing
 ├── test_images/
-│   └── sample.jpg            # Ảnh dùng để test
-├── predict_deepfake.py       # Script dự đoán chính
+│   └── example.jpg            # Ảnh dùng để test
+├── predict_deepfake.py       
 ├── requirements.txt          # Danh sách thư viện cần thiết
-└── README.md                 # Tài liệu dự án
+└── README.md                 
