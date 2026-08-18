@@ -64,8 +64,11 @@ Sau khi hoàn tất cài đặt, bạn có thể chạy dự đoán một bức 
 
 Bash
 python predict_deepfake.py --image "test_images/fake.jpg" --model "weights/best_model.pth"
-Prediction Example
-## 📊Khi chạy lệnh trong Terminal, hệ thống sẽ in ra kết quả phân tích logit và xác suất[cite: 1]:
+🌐 Demo
+Đã triển khai ứng dụng dưới dạng Web App. Bạn có thể trải nghiệm trực tiếp tại đây:
+👉 Live Demo on Hugging Face Spaces / Streamlit # https://deepfake-image-detection-ih7nqcv4b6fqqwbqwhz5tm.streamlit.app/
+## 📊 Prediction Example
+Khi chạy lệnh trong Terminal, hệ thống sẽ in ra kết quả phân tích logit và xác suất
 
 Plaintext
 Dang phan tich: test_images/sample.jpg
