@@ -12,7 +12,7 @@ st.write("Tải ảnh lên để kiểm tra xem là ảnh **Real (Thật)** hay 
 MODEL_PATH = 'weights/best_model.pth'
 # Đặt ID file Google Drive của bạn vào đây (Lấy từ link chia sẻ Drive)
 # Ví dụ link: https://drive.google.com/file/d/1ABC123xyz.../view -> ID là 1ABC123xyz...
-GDRIVE_FILE_ID = 'THAY_GOOGLE_DRIVE_FILE_ID_CUA_BAN_VAO_DAY'
+GDRIVE_FILE_ID = 'https://drive.google.com/file/d/1n1BfdbCNzU5eaIzaHyQ9hqQXEp8qoVxh/view?usp=sharing'
 
 @st.cache_resource
 def get_model():
