@@ -10,18 +10,16 @@ st.title("🛡️ Deepfake Image Detection")
 st.write("Tải ảnh lên để kiểm tra xem là ảnh **Real (Thật)** hay **Fake (Giả)**.")
 
 MODEL_PATH = 'weights/best_model.pth'
-# Đặt ID file Google Drive của bạn vào đây (Lấy từ link chia sẻ Drive)
-# Ví dụ link: https://drive.google.com/file/d/1ABC123xyz.../view -> ID là 1ABC123xyz...
-GDRIVE_FILE_ID = 'https://drive.google.com/file/d/1n1BfdbCNzU5eaIzaHyQ9hqQXEp8qoVxh/view?usp=sharing'
+# ĐÃ ĐIỀN ĐÚNG CHUỖI FILE ID CỦA BẠN:
+GDRIVE_FILE_ID = '1n1BfdbCNzU5eaIzaHyQ9hqQXEp8qoVxh'
 
 @st.cache_resource
 def get_model():
-    # Tự động tải weights từ Google Drive nếu chưa có trên server
     if not os.path.exists(MODEL_PATH):
         os.makedirs('weights', exist_ok=True)
-        url = f'https://drive.google.com/uc?id={GDRIVE_FILE_ID}'
-        with st.spinner('Đang tải mô hình weights từ Google Drive (chỉ mất lần đầu)...'):
-            gdown.download(url, MODEL_PATH, quiet=False)
+        with st.spinner('Đang tải mô hình weights từ Google Drive (chỉ mất khoảng 10-15 giây lần đầu)...'):
+            # Dùng tham số id=GDRIVE_FILE_ID trực tiếp
+            gdown.download(id=GDRIVE_FILE_ID, output=MODEL_PATH, quiet=False)
 
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model = load_model(MODEL_PATH, device)
