@@ -40,7 +40,7 @@ deepfake-detection/
 ├── weights/
 │   └── best_model.pth        # https://drive.google.com/file/d/1n1BfdbCNzU5eaIzaHyQ9hqQXEp8qoVxh/view?usp=sharing
 ├── test_images/
-│   └── example.jpg            # Ảnh dùng để test
+│   └── real.jpg or fake.jpg            # Ảnh dùng để test
 ├── predict_deepfake.py       
 ├── requirements.txt          # Danh sách thư viện cần thiết
 └── README.md                 
