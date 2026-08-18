@@ -44,7 +44,7 @@ deepfake-detection/
 ├── predict_deepfake.py       
 ├── requirements.txt          # Danh sách thư viện cần thiết
 └── README.md
-🚀 Installation
+## 🚀 Installation
 1. Clone kho lưu trữ này về máy tính
 
 Bash
@@ -59,8 +59,35 @@ Do giới hạn dung lượng lưu trữ trên GitHub, vui lòng tải file best
 
 Link Google Drive tải best_model.pth # https://drive.google.com/file/d/1n1BfdbCNzU5eaIzaHyQ9hqQXEp8qoVxh/view?usp=sharing
 
-▶️ Run Locally
+ ## ▶️ Run Locally
 Sau khi hoàn tất cài đặt, bạn có thể chạy dự đoán một bức ảnh bằng lệnh sau:
 
 Bash
 python predict_deepfake.py --image "test_images/fake.jpg" --model "weights/best_model.pth"
+Prediction Example
+## 📊Khi chạy lệnh trong Terminal, hệ thống sẽ in ra kết quả phân tích logit và xác suất[cite: 1]:
+
+Plaintext
+Dang phan tich: test_images/sample.jpg
+[DEBUG] logits : [1.4502, -1.2304]
+[DEBUG] P(Real): 93.58%
+[DEBUG] P(Fake): 6.42%
+[DEBUG] Threshold: 0.5
+
+==========================================
+  Ket qua    : THAT (REAL)
+  Do tin cay : 93.58%
+  P(Real)    : 93.58%
+  P(Fake)    : 6.42%
+  Threshold  : 0.5
+==========================================
+⚠️ Limitations
+Mô hình có thể giảm độ chính xác với các hình ảnh bị nén quá mạnh (heavy compression) hoặc độ phân giải quá thấp.
+
+Được thiết kế tối ưu với khuôn mặt trực diện; kết quả có thể bị nhiễu nếu khuôn mặt bị che khuất một phần lớn hoặc góc chụp quá nghiêng.
+👨‍💻 Author
+Le Hoang Phuc
+
+Artificial Intelligence Student at FPT University
+
+GitHub: Zeroslayer
